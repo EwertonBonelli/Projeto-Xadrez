@@ -1,13 +1,14 @@
 ﻿using System;
-using tabuleiro;
+using tabuleiro; // Importando o arquivo tabuleiro para comunicação com a classe Posicao.
 
-namespace xadrez_console{
-    class Program{
-        static void Main(string[] args){
-            Posicao P;
+namespace xadrez_console {
+    class Program {
+        static void Main(string[] args) {
 
-            P = new Posicao(3, 4);
-            Console.WriteLine("Posicao: "+ P);
+            Tabuleiro tab = new Tabuleiro(8, 8);
+
+
+            Console.WriteLine();
         }
     }
 }
