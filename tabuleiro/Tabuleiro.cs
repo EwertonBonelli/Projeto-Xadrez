@@ -15,6 +15,14 @@ namespace tabuleiro {
             this.colunas = colunas;
             pecas = new Peca[linhas, colunas]; //criei uma nova matriz de linhas e colunas.
         }
+
+        //Como a Propriedade Peca esta como privado, não conseguirei utilizar em outras classes.
+        //Para isso vou criar um Metodo publico Peca para dar acesso a uma peça do meu tabuleiro.
+        //Esse metodo ira receber como argumento de entrada, linha e coluna.
+        public Peca peca(int linha, int coluna) {
+            //Ele ira retornar a matriz pecas na posicao linha e coluna.
+            return pecas[linha, coluna];
+        }
         
     }
 }
