@@ -14,8 +14,9 @@ namespace tabuleiro {
 
         //Construtor com argumentos.
         //O "this" é para identificar as propriedades que criamos no comeco do codigo.
-        public Peca(Posicao posicao, Tabuleiro tabuleiro, Cor cor) {
-            this.posicao = posicao;
+        public Peca(Tabuleiro tabuleiro, Cor cor) {
+            //quando criar uma peca a posição dela sera null porque ela não tem posição ainda.
+            this.posicao = null;
             this.tab = tab;
             this.cor = cor;
             this.qteMovimentos = 0;

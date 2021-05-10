@@ -5,11 +5,11 @@ using tabuleiro; // Importando o arquivo tabuleiro para comunicação com a clas
 namespace xadrez_console {
     class Tela {
 
-        //Metodo estatico void, esomente ira imprimir o tabuleiro na tela do usuario.
+        //Metodo estatico void, somente ira imprimir o tabuleiro na tela do usuario.
         public static void imprimirTabuleiro(Tabuleiro tab) {
 
             //for para percorrer as linhas do tabuleiro.
-            for (int i = 0; i <tab.linhas; i++) {
+            for (int i = 0; i < tab.linhas; i++) {
                 //for para percorrer as colunas do tabuleiro.
                 for (int j = 0; j < tab.colunas; j++) {
                     //Se o valores da matriz peca de i e j estiverem vazios, então emprima uma traço " - "
@@ -17,7 +17,7 @@ namespace xadrez_console {
                         Console.Write("- ");
                     }
                     else {//se não, imprime a matriz peca.
-                        Console.WriteLine(tab.peca(i, j) + " ");
+                        Console.Write(tab.peca(i, j) + " ");
                     }
                 }
                 Console.WriteLine();
