@@ -1,6 +1,6 @@
 ﻿/*
  Essa classe é para trabalhar com as posições do xadrez de forma certa.
-mos criamos uma matriz que percore:
+Nos criamos uma matriz que percore deste jeito:
 
   0 1 2 3 4 5 6 7
 0
@@ -24,7 +24,8 @@ No jogo de xadrez ele é lido desta forma, por padrao do proprio jogo:
 1 
   a b c d e f g h
 
-Então essa classe ira trabalhar desta forma para quem estiver jogando. 
+Então para o usuario ele ira jogar com a forma do proprio xadrez mas pelo sistema usamos a forma da matriz.
+Sendo assim, temos que fazer essa conversão para o usuario.
  
  */
 

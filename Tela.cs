@@ -1,8 +1,14 @@
-﻿using System;
+﻿/*
+ Nessa classe iremos montar como ira ser apresentado o tabuleiro na tela para o usuario.
+ */
+
+
+
+using System;
 using tabuleiro; // Importando o arquivo tabuleiro para comunicação com a classe Posicao.
+using xadrez; //Importando o diretorio para comunicacao das classes.
 
-
-namespace xadrez_console {
+namespace xadrez_console {//Deixar o namespace com o mesmo nome do Program (programa padrao).
     class Tela {
 
         //Metodo estatico void, somente ira imprimir o tabuleiro na tela do usuario.
@@ -27,6 +33,15 @@ namespace xadrez_console {
             }
             //Depois do for eu imprimo as letras que sairam em ordem no tabuleiro.
             Console.WriteLine("  a b c d e f g h");
+        }
+
+        //Metodo que ira ler o que o usuario digitar no teclado
+        public static PosicaoXadrez lerPosicaoXadrez() {
+
+            string s = Console.ReadLine(); //Recebendo os dados digitados pelo usuario.
+            char coluna = s[0]; // Aqui estou armazenando somente a letra do tabuleiro.
+            int linha = int.Parse(s[1] + ""); // estou pegando o valor digitado pelo usuario e convertendo ele para int.
+            return new PosicaoXadrez(coluna, linha); //Retornando o resultados.
         }
 
         //Metodo static com parametro de entrada para alterar a cor a peça preta para o amarelo.

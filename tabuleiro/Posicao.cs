@@ -1,5 +1,8 @@
-﻿
-namespace tabuleiro {
+﻿/*
+ Essa classe é para as posição do tabuleiro. iremos mais usar com as paças para saber as suas posições.
+ 
+ */
+namespace tabuleiro {//Deixar o namespace somente como tabuleiro.
     class Posicao {
         //Criando os atributos(metodos).
         //O tabuleiro sao acessados por linhas e colunas.

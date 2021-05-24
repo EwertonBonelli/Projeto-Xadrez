@@ -7,14 +7,29 @@ namespace xadrez_console {
         static void Main(string[] args) {
 
             try {
-                Tabuleiro tab = new Tabuleiro(8, 8);
-                tab.colocarPeca(new Torre(tab, Cor.Preta), new Posicao(0, 0));
-                tab.colocarPeca(new Torre(tab, Cor.Preta), new Posicao(1, 3));
-                tab.colocarPeca(new Rei(tab, Cor.Preta), new Posicao(0, 2));
+                //estanciando a classe PartidaXadrez.
+                PartidaDeXadrez partida = new PartidaDeXadrez();
 
-                tab.colocarPeca(new Rei(tab, Cor.Branca), new Posicao(3, 5));
+                //Enquanto a minha partida não estiver terminada...
+                while (!partida.terminada) {
 
-                Tela.imprimirTabuleiro(tab);
+                    Console.Clear(); // Limpa a tela.
+                    //Imprimindo o tabuleiro.
+                    Tela.imprimirTabuleiro(partida.tab);
+
+                    Console.WriteLine();
+                    Console.Write("Origem: ");
+                    //metodo para ler do teclado uma posicao do xadrez.
+                    Posicao origem = Tela.lerPosicaoXadrez().toPosicao(); // Lendo a posicao e transformando ela em matriz (toPosicao()).
+                    
+                    Console.Write("Destino: ");
+                    Posicao destino = Tela.lerPosicaoXadrez().toPosicao();
+
+                    partida.executaMovimento(origem, destino);
+                }
+
+
+                
             }
             catch (TabuleiroException e) {
                 Console.WriteLine(e.Message);

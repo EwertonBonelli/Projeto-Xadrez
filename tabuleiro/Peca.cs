@@ -1,5 +1,10 @@
-﻿
-namespace tabuleiro {
+﻿/*
+-Essa classe são as peças que iremos usar junto com a cor que é o enumerado e a posição do tabuleiro para
+identificar quais posição a peça ira ficar.
+
+-Irei criar um metodo para saber quantod movimentos a peça ira fazer na jogada.
+ */
+namespace tabuleiro {//Deixar o namespace somente como tabuleiro.
     class Peca {
         //Criando as propriedades.
         public Posicao posicao { get; set; } //propriedade da classe Posicao.
@@ -20,6 +25,11 @@ namespace tabuleiro {
             this.tab = tab;
             this.cor = cor;
             this.qteMovimentos = 0;
+        }
+
+        //Criando um metodo para somar quantos movimentos a peça esta fazendo.
+        public void incrementarQteMovimentos() {
+            qteMovimentos++;
         }
 
     }

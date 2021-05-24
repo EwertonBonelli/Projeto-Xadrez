@@ -1,5 +1,7 @@
-﻿
-namespace tabuleiro {
+﻿/*
+ Enumerodo para as cores das peças do xadrez.
+ */
+namespace tabuleiro {//Deixar o namespace somente como tabuleiro.
     enum Cor { //Criação tipo enumerado (Enum).
 
         Branca,
