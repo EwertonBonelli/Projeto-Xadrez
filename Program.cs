@@ -21,7 +21,16 @@ namespace xadrez_console {
                     Console.Write("Origem: ");
                     //metodo para ler do teclado uma posicao do xadrez.
                     Posicao origem = Tela.lerPosicaoXadrez().toPosicao(); // Lendo a posicao e transformando ela em matriz (toPosicao()).
-                    
+
+                    //Irei criar uma matriz boleano para pegar a peça de origem que o usuario digitou e nessa posição irei
+                    //pegar os movimentos possiveis que a peça pode fazer.
+                    bool[,] posicoesPossiveis = partida.tab.peca(origem).movimentosPossiveis();
+
+                    Console.Clear(); // Limpando a tela novamente.
+                    //Imprimindo o tabuleiro com as posiçoes marcadas e passando a matriz como argumento.
+                    Tela.imprimirTabuleiro(partida.tab, posicoesPossiveis);
+
+                    Console.WriteLine();
                     Console.Write("Destino: ");
                     Posicao destino = Tela.lerPosicaoXadrez().toPosicao();
 

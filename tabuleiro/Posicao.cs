@@ -16,6 +16,13 @@ namespace tabuleiro {//Deixar o namespace somente como tabuleiro.
             this.coluna = coluna;
         }
 
+        //Metodo para definir valores das posições.
+        public void definirValores( int linha, int coluna) {
+            this.linha = linha;
+            this.coluna = coluna;
+
+        }
+
         //Criação do ToString para poder converter os dados em uma string e apresentar ela na tela do usuario.
         public override string ToString() {
             return linha

@@ -5,7 +5,7 @@ identificar quais posição a peça ira ficar.
 -Irei criar um metodo para saber quantod movimentos a peça ira fazer na jogada.
  */
 namespace tabuleiro {//Deixar o namespace somente como tabuleiro.
-    class Peca {
+    abstract class Peca { //Classe abstrata.
         //Criando as propriedades.
         public Posicao posicao { get; set; } //propriedade da classe Posicao.
         public Cor cor { get; protected set; } //Propriedade do Enum Cor onde ela pode ser acessada pelas outras classes(get).
@@ -19,7 +19,7 @@ namespace tabuleiro {//Deixar o namespace somente como tabuleiro.
 
         //Construtor com argumentos.
         //O "this" é para identificar as propriedades que criamos no comeco do codigo.
-        public Peca(Tabuleiro tabuleiro, Cor cor) {
+        public Peca(Tabuleiro tab, Cor cor) {
             //quando criar uma peca a posição dela sera null porque ela não tem posição ainda.
             this.posicao = null;
             this.tab = tab;
@@ -31,6 +31,9 @@ namespace tabuleiro {//Deixar o namespace somente como tabuleiro.
         public void incrementarQteMovimentos() {
             qteMovimentos++;
         }
+
+        //Metodo abstrato para movimentos possiveis da peça.
+        public abstract bool[,] movimentosPossiveis();
 
     }
 }
