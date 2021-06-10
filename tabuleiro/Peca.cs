@@ -32,6 +32,29 @@ namespace tabuleiro {//Deixar o namespace somente como tabuleiro.
             qteMovimentos++;
         }
 
+        //Operação para ver se a peça atual não esta bloqueada entre outras peças ao redor para fazer os movimentos.
+        public bool existeMovimentosPossiveis() {
+            //Criando uma matriz temporaria para receber o movimentosPossiveis de jogadas.
+            bool[,] mat = movimentosPossiveis();
+            //For para percorrer as linhas e colunas da matriz.
+            for(int i = 0; i < tab.linhas; i++) {
+                for (int j = 0; j < tab.colunas; j++) { 
+                    if(mat[i, j] == true) { // se essa posição for verdadeiro, então...
+                        return true;
+                    }
+                }
+            }
+            return false; // retorna quando não tem nenhum movimento possivel na minha operação.
+        }
+
+
+        //Metodo para ver se pode mover para uma dada posicao.
+        // Esse metodo ira retornar verdadeiro ou falso para movimentos possiveis de uma peça. 
+        public bool podeMoverPara(Posicao pos) {
+            return movimentosPossiveis()[pos.linha, pos.coluna]; 
+        }
+
+
         //Metodo abstrato para movimentos possiveis da peça.
         public abstract bool[,] movimentosPossiveis();
 

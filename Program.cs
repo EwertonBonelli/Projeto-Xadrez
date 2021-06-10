@@ -13,32 +13,40 @@ namespace xadrez_console {
                 //Enquanto a minha partida não estiver terminada...
                 while (!partida.terminada) {
 
-                    Console.Clear(); // Limpa a tela.
-                    //Imprimindo o tabuleiro.
-                    Tela.imprimirTabuleiro(partida.tab);
+                    try {
+                        Console.Clear(); // Limpa a tela.
+                                         //Imprimindo o tabuleiro.
+                        Tela.imprimirTabuleiro(partida.tab);
+                        Console.WriteLine();
+                        Console.WriteLine("Turno: " + partida.turno);
+                        Console.WriteLine("Aguardando jogada: " + partida.jogadorAtual);
 
-                    Console.WriteLine();
-                    Console.Write("Origem: ");
-                    //metodo para ler do teclado uma posicao do xadrez.
-                    Posicao origem = Tela.lerPosicaoXadrez().toPosicao(); // Lendo a posicao e transformando ela em matriz (toPosicao()).
+                        Console.WriteLine();
+                        Console.Write("Origem: ");
+                        //metodo para ler do teclado uma posicao do xadrez.
+                        Posicao origem = Tela.lerPosicaoXadrez().toPosicao(); // Lendo a posicao e transformando ela em matriz (toPosicao()).
+                        partida.validarPosicaoDeOrigem(origem); // validando a possição de origem digitado pelo usuario.
 
-                    //Irei criar uma matriz boleano para pegar a peça de origem que o usuario digitou e nessa posição irei
-                    //pegar os movimentos possiveis que a peça pode fazer.
-                    bool[,] posicoesPossiveis = partida.tab.peca(origem).movimentosPossiveis();
+                        //Irei criar uma matriz boleano para pegar a peça de origem que o usuario digitou e nessa posição irei
+                        //pegar os movimentos possiveis que a peça pode fazer.
+                        bool[,] posicoesPossiveis = partida.tab.peca(origem).movimentosPossiveis();
 
-                    Console.Clear(); // Limpando a tela novamente.
-                    //Imprimindo o tabuleiro com as posiçoes marcadas e passando a matriz como argumento.
-                    Tela.imprimirTabuleiro(partida.tab, posicoesPossiveis);
+                        Console.Clear(); // Limpando a tela novamente.
+                                         //Imprimindo o tabuleiro com as posiçoes marcadas e passando a matriz como argumento.
+                        Tela.imprimirTabuleiro(partida.tab, posicoesPossiveis);
 
-                    Console.WriteLine();
-                    Console.Write("Destino: ");
-                    Posicao destino = Tela.lerPosicaoXadrez().toPosicao();
+                        Console.WriteLine();
+                        Console.Write("Destino: ");
+                        Posicao destino = Tela.lerPosicaoXadrez().toPosicao();
+                        partida.validarPosicaoDeDestino(origem, destino);
 
-                    partida.executaMovimento(origem, destino);
+                        partida.realizaJogada(origem, destino);
+                    }
+                    catch (TabuleiroException e) {
+                        Console.WriteLine(e.Message);
+                        Console.ReadLine();
+                    }
                 }
-
-
-                
             }
             catch (TabuleiroException e) {
                 Console.WriteLine(e.Message);

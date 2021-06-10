@@ -65,7 +65,7 @@ namespace xadrez { // deixar o namespace somente como xadrez.
               a b c d e f g h        0 1 2 3 4 5 6 7
 
             NA COLUNA - 'A' USAMOS UM MACETE PARA PERCORRER AS COLUNAS.
-            PARA O SISTEMA O 'A' ELE É UM NUMERO INTEIRO ENTÃO VAMOS SUPOR QUE O USUARIO DIGITOU A LETRA 'C', ENTTÃO VAI SER
+            PARA O SISTEMA O 'A' ELE É UM NUMERO INTEIRO ENTÃO VAMOS SUPOR QUE O USUARIO DIGITOU A LETRA 'C', ENTÃO VAI SER
             'A' - 'C' QUE É 0 - 2 = 2 
 
                    XADREZ                 MATRIZ
