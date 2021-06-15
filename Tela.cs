@@ -5,11 +5,47 @@
 
 
 using System;
+using System.Collections.Generic; //Importando a biblioteca para usar o conjunto de HashSet.
 using tabuleiro; // Importando o arquivo tabuleiro para comunicação com a classe Posicao.
 using xadrez; //Importando o diretorio para comunicacao das classes.
 
 namespace xadrez_console {//Deixar o namespace com o mesmo nome do Program (programa padrao).
     class Tela {
+
+        //Metodo para imprimir a partida na tela para o usuario.
+        public static void imprimirPartida(PartidaDeXadrez partida) {
+            imprimirTabuleiro(partida.tab);
+            Console.WriteLine();
+            imprimirPecasCapturadas(partida);
+            Console.WriteLine();
+            Console.WriteLine("Turno: " + partida.turno);
+            Console.WriteLine("Aguardando jogada: " + partida.jogadorAtual);
+        }
+
+        //Metodo para imprimir para o usuario as peças que ja foram capturadas no jogo.
+        public static void imprimirPecasCapturadas(PartidaDeXadrez partida) {
+            Console.WriteLine("Peças capturadas:");
+            Console.Write("Brancas: ");
+            imprimirConjunto(partida.pecasCapturadas(Cor.Branca));
+            Console.WriteLine();
+            Console.Write("Pretas: ");
+            //Para as peças da cor preta imprimirem amarelos, vamos mudar a cor e depois voltar ao na cor normal.
+            ConsoleColor aux = Console.ForegroundColor; //aux recebe a cor padrao.
+            Console.ForegroundColor = ConsoleColor.Yellow; //trocando a cor padrao para o amarelo.
+            imprimirConjunto(partida.pecasCapturadas(Cor.Preta));
+            Console.ForegroundColor = aux;// Voltando para a cor padrao.
+            Console.WriteLine();
+        }
+
+        //Metodo para imprimir o conjunto de peças.
+        public static void imprimirConjunto(HashSet<Peca> conjunto) {
+            Console.Write("[");
+            foreach (Peca x in conjunto) {// para toda peça x no conjunto...
+                Console.Write(x + " "); // imprima a peça.
+            }
+            Console.Write("]");
+        }
+
 
         //Metodo estatico void, somente ira imprimir o tabuleiro na tela do usuario.
         public static void imprimirTabuleiro(Tabuleiro tab) {
