@@ -32,6 +32,11 @@ namespace tabuleiro {//Deixar o namespace somente como tabuleiro.
             qteMovimentos++;
         }
 
+        //Criando um metodo para tirar quantos movimentos a peça esta fazendo caso a peça tiver que voltar para sua origem.
+        public void decrementarQteMovimentos() {
+            qteMovimentos--;
+        }
+
         //Operação para ver se a peça atual não esta bloqueada entre outras peças ao redor para fazer os movimentos.
         public bool existeMovimentosPossiveis() {
             //Criando uma matriz temporaria para receber o movimentosPossiveis de jogadas.
