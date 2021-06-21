@@ -19,9 +19,15 @@ namespace xadrez_console {//Deixar o namespace com o mesmo nome do Program (prog
             imprimirPecasCapturadas(partida);
             Console.WriteLine();
             Console.WriteLine("Turno: " + partida.turno);
-            Console.WriteLine("Aguardando jogada: " + partida.jogadorAtual);
-            if (partida.xeque) {
-                Console.WriteLine("XEQUE!");
+            if (!partida.terminada) { //Se a partida não estiver terminada, então...
+                Console.WriteLine("Aguardando jogada: " + partida.jogadorAtual);
+                if (partida.xeque) {
+                    Console.WriteLine("XEQUE!");
+                }
+            }
+            else {// se a partida terminou
+                Console.WriteLine("XEQUEMATE!");
+                Console.WriteLine("Vencedor: " + partida.jogadorAtual);
             }
         }
 
