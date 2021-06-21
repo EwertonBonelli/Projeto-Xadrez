@@ -55,7 +55,7 @@ namespace tabuleiro {//Deixar o namespace somente como tabuleiro.
 
         //Metodo para ver se pode mover para uma dada posicao.
         // Esse metodo ira retornar verdadeiro ou falso para movimentos possiveis de uma peça. 
-        public bool podeMoverPara(Posicao pos) {
+        public bool movimentoPossivel(Posicao pos) {
             return movimentosPossiveis()[pos.linha, pos.coluna]; 
         }
 

@@ -104,7 +104,7 @@ namespace xadrez {//Deixar o namespace somente como xadrez.
         //Metodo para validar a posição de destino da peça.
         public void validarPosicaoDeDestino(Posicao origem, Posicao destino) {
             //Se a minha peça de origem não poder mover para a posição de destino, então...
-            if (!tab.peca(origem).podeMoverPara(destino)) {
+            if (!tab.peca(origem).movimentoPossivel(destino)) {
                 throw new TabuleiroException("Posição de destino invalida!"); //apresente a mensagem de erro.
             }
         }
