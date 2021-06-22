@@ -1,22 +1,15 @@
-﻿/*
- Essa classe criamos a peça Rei.
- */
-
-using tabuleiro; // importando o diretorio onde fica as classes.
+﻿using tabuleiro;// importando o diretorio onde fica as classes.
 
 namespace xadrez {//Deixar o namespace somente como xadrez.
-    class Rei : Peca { //Herdando da classe Peca.
+    class Cavalo : Peca {//Herdando da classe Peca.
 
-        //contrutor padrao com argumentos do construtor da classe Peca.
-        public Rei(Tabuleiro tab, Cor cor) : base(tab, cor) { 
-            
+        //Construtor padrao com argumentos da classe Peca.
+        public Cavalo(Tabuleiro tab, Cor cor) : base(tab, cor) {
         }
 
-
-        //Metodo ToString.
+        //ToString que ira retornar o nome do Cavalo como C.
         public override string ToString() {
-            return "R" ;
-
+            return "C";
         }
 
         //metodo para ver se a peça pode mover na posicação dada.
@@ -38,62 +31,63 @@ namespace xadrez {//Deixar o namespace somente como xadrez.
             //Verificando e definindo as posições do xadrez, onde no tabuleiro as linhas são contado de cima para baixo 1,2,3... etc.
             // e as colunas são andados da esquerda para direita a,b,c... etc.
 
-            //Verificando a posição a CIMA do Rei.
-            pos.definirValores(posicao.linha - 1, posicao.coluna);
+            //Verificando a posição a CIMA-ESQUERDA do Cavalo.
+            pos.definirValores(posicao.linha - 1, posicao.coluna - 2);
             //Se a posição do meu tabuleiro estiver nos padroes de acordo E o podeMover estiver campo vazio ou peça adversario, então...
-            if(tab.posicaoValida(pos) && podeMover(pos)) {
+            if (tab.posicaoValida(pos) && podeMover(pos)) {
                 mat[pos.linha, pos.coluna] = true; // A matriz mat recebe verdadeiro para mover a peça..
             }
-
-            //Verificando a posição a CIMA-DIREITA do Rei.
-            pos.definirValores(posicao.linha - 1, posicao.coluna + 1);
+            //Verificando a posição a CIMA-ESQUERDA do Cavalo.
+            pos.definirValores(posicao.linha - 2, posicao.coluna - 1);
             //Se a posição do meu tabuleiro estiver nos padroes de acordo E o podeMover estiver campo vazio ou peça adversario, então...
             if (tab.posicaoValida(pos) && podeMover(pos)) {
                 mat[pos.linha, pos.coluna] = true; // A matriz mat recebe verdadeiro para mover a peça..
             }
 
-            //Verificando a posição a DIREITA do Rei.
-            pos.definirValores(posicao.linha, posicao.coluna + 1);
+            //Verificando a posição a CIMA-DIREITA do Cavalo.
+            pos.definirValores(posicao.linha - 2, posicao.coluna + 1);
             //Se a posição do meu tabuleiro estiver nos padroes de acordo E o podeMover estiver campo vazio ou peça adversario, então...
             if (tab.posicaoValida(pos) && podeMover(pos)) {
                 mat[pos.linha, pos.coluna] = true; // A matriz mat recebe verdadeiro para mover a peça..
             }
 
-            //Verificando a posição a BAIXO-DIREITA do Rei.
-            pos.definirValores(posicao.linha + 1, posicao.coluna + 1);
+            //Verificando a posição a CIMA-DIREITA do Cavalo.
+            pos.definirValores(posicao.linha - 1, posicao.coluna + 2);
             //Se a posição do meu tabuleiro estiver nos padroes de acordo E o podeMover estiver campo vazio ou peça adversario, então...
             if (tab.posicaoValida(pos) && podeMover(pos)) {
                 mat[pos.linha, pos.coluna] = true; // A matriz mat recebe verdadeiro para mover a peça..
             }
 
-            //Verificando a posição a BAIXO do Rei.
-            pos.definirValores(posicao.linha +1, posicao.coluna);
+            //Verificando a posição a BAIXO-DIREITA do Cavalo
+            pos.definirValores(posicao.linha + 1, posicao.coluna + 2);
             //Se a posição do meu tabuleiro estiver nos padroes de acordo E o podeMover estiver campo vazio ou peça adversario, então...
             if (tab.posicaoValida(pos) && podeMover(pos)) {
                 mat[pos.linha, pos.coluna] = true; // A matriz mat recebe verdadeiro para mover a peça..
             }
 
-            //Verificando a posição a BAIXO-ESQUERDA do Rei.
-            pos.definirValores(posicao.linha + 1, posicao.coluna - 1);
+            //Verificando a posição a BAIXO-DIREITA do Cavalo
+            pos.definirValores(posicao.linha + 2, posicao.coluna + 1);
             //Se a posição do meu tabuleiro estiver nos padroes de acordo E o podeMover estiver campo vazio ou peça adversario, então...
             if (tab.posicaoValida(pos) && podeMover(pos)) {
                 mat[pos.linha, pos.coluna] = true; // A matriz mat recebe verdadeiro para mover a peça..
             }
 
-            //Verificando a posição a ESQUERDA do Rei.
-            pos.definirValores(posicao.linha, posicao.coluna - 1);
+            //Verificando a posição a BAIXO-ESQUERDA do Cavalo.
+            pos.definirValores(posicao.linha + 2, posicao.coluna - 1);
             //Se a posição do meu tabuleiro estiver nos padroes de acordo E o podeMover estiver campo vazio ou peça adversario, então...
             if (tab.posicaoValida(pos) && podeMover(pos)) {
                 mat[pos.linha, pos.coluna] = true; // A matriz mat recebe verdadeiro para mover a peça..
             }
 
-            //Verificando a posição a CIMA-ESQUERDA do Rei.
-            pos.definirValores(posicao.linha - 1, posicao.coluna - 1);
+            //Verificando a posição a BAIXO-ESQUERDA do Cavalo.
+            pos.definirValores(posicao.linha + 1, posicao.coluna - 2);
             //Se a posição do meu tabuleiro estiver nos padroes de acordo E o podeMover estiver campo vazio ou peça adversario, então...
             if (tab.posicaoValida(pos) && podeMover(pos)) {
                 mat[pos.linha, pos.coluna] = true; // A matriz mat recebe verdadeiro para mover a peça..
             }
-            return mat; // Retornando a matriz
+
+            return mat;
+
         }
     }
 }
