@@ -182,10 +182,41 @@ namespace xadrez {//Deixar o namespace somente como xadrez.
         //Metodo para realizar as jogadas de quem é a vez.
         public void realizaJogada(Posicao origem, Posicao destino) {
             Peca pecaCapturada = executaMovimento(origem, destino); // a pecaCapturada recebe o executaMovimento da peça.
+
             if (estaEmXeque(jogadorAtual)) { // Se o jogador estiver em xeque.
                 desfazMovimento(origem, destino, pecaCapturada); // ira desfazer a jogada.
                 throw new TabuleiroException("Você não pode se colocar em xeque!"); // e apresentar o erro.
             }
+
+            //armazeno a peça de destino.
+            Peca p = tab.peca(destino);
+
+            //Jogadaespecial promocao.
+            //Se a peça p é um peao...
+            if (p is Peao) {
+                //Se a peça for da cor branca E a linha for igual a linha zero OU a peça for da cor preta E a linha for igual a 7 e
+                //porque ele é uma jogada em promoção.
+                //(O zero e a primeira linha do tabuleiro e o sete ea ultima linha do tabuleiro).
+                if ((p.cor == Cor.Branca && destino.linha == 0) || (p.cor == Cor.Preta && destino.linha == 7)) {
+                    //vou retirar a peça do tabuleiro.
+                    p = tab.retirarPeca(destino);
+                    //retiro ele do conjunto de peças em jogo porque ele não é uma peça capturada.
+                    pecas.Remove(p);
+                    //Agoras eu crio uma nova dama com a mesma cor da peça p.
+                    Peca dama = new Dama(tab, p.cor);
+                    //Agora eu vou colocar essa nova peça la na posição de destino que retirei a outra peça.
+                    //então estou trocando a peça peao pela peça dama, isso se chama jogada em promoção quando
+                    // uma peça chega ate o final do tabuleiro e ela pode mudar sua peça pela dama.
+                    tab.colocarPeca(dama, destino);
+                    //Agora eu adciono essa dama nas peças do tabuleiro.
+                    pecas.Add(dama);
+
+
+                }
+            }
+
+
+
 
             if (estaEmXeque(adversario(jogadorAtual))) { // Se o meu adversario atual estiver em xeque
                 xeque = true; // ai sim ele pode, onde xeque recebe verdadeiro.
@@ -204,8 +235,6 @@ namespace xadrez {//Deixar o namespace somente como xadrez.
             }
 
             // Jogadaespecial en passant.
-            //armazeno a peça pra ver se esse peça é um peao, por isso que eu pego a peça de destino.
-            Peca p = tab.peca(destino);
             //Se essa peça p é um Peao E ela andou menos duas linhas OU ela andou mais duas linhas, então...
             //(o menos duas linhas é a peça branca e o mais duas linhas e a peça preta).
             if (p is Peao && (destino.linha == origem.linha - 2 || destino.linha == origem.linha + 2)) {
@@ -214,9 +243,6 @@ namespace xadrez {//Deixar o namespace somente como xadrez.
             else {//caso ao contrario não tem ninguel vulneravel em passant.
                 vulneravelEnPassant = null; // ele continua vazio.
             }
-
-
-
         }
 
         //Metodo para ver se a peça de origem que o usuario digitou e valida.
