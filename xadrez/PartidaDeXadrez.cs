@@ -211,7 +211,6 @@ namespace xadrez {//Deixar o namespace somente como xadrez.
                     //Agora eu adciono essa dama nas peças do tabuleiro.
                     pecas.Add(dama);
 
-
                 }
             }
 
