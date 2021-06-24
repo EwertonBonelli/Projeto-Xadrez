@@ -26,6 +26,7 @@ namespace xadrez {//Deixar o namespace somente como xadrez.
         private HashSet<Peca> pecas; //Esse conjunto ira guardar todas as minhas peças da partida.
         private HashSet<Peca> capturadas; //Esse cojunto ira guardar as peças capturadas na partida.
         public bool xeque { get; private set; } // variavel para indicar se a minha partida esta em xeque.
+        public Peca vulneravelEnPassant { get; private set; } // clamando a classe peça e dando o nome para ela.
 
         //Construtor padrao.
         public PartidaDeXadrez() {
@@ -34,6 +35,7 @@ namespace xadrez {//Deixar o namespace somente como xadrez.
             jogadorAtual = Cor.Branca; //O jogador ira começar com a cor branca.
             terminada = false; //A partida esta recebendo falso porque aqui ela não esta terminada ainda.
             xeque = false; // ela começa com falso por ser um bool.
+            vulneravelEnPassant = null;// ela ira iniciar como nulo.
             pecas = new HashSet<Peca>(); //Estanciando as pecas.
             capturadas = new HashSet<Peca>(); //Estanciando as capturadas. 
             colocarPecas(); // Metodo auxiliar que criamos a baixo.
@@ -80,6 +82,30 @@ namespace xadrez {//Deixar o namespace somente como xadrez.
                 T.incrementarQteMovimentos();
                 //agora tenho que colocar a torre que tirrei para o destino da torre que é destinoT.
                 tab.colocarPeca(T, destinoT);
+            }
+
+            //Jogadaespecial en passant.
+            //Se o peça p é um peao, então...
+            if (p is Peao) {
+                //Se a origem da coluna não for igual a de destino E a peça capturada estiver vazio, então...
+                //quer dizer que estou movendo para os lados e não nas linhas.
+                if (origem.coluna != destino.coluna && pecaCapturada == null) {
+                    //declarando a variavel da peça.
+                    Posicao posP;
+                    //Se a cor dessa peça p for a cor branca.
+                    if (p.cor == Cor.Branca) {
+                        //Aqui estou capturando a peça adversaria preta que esta a baixo da peça branca.
+                        posP = new Posicao(destino.linha + 1, destino.coluna);
+                    }
+                    else { //Se for um peao preto...
+                        //eu capturo a peça adversaria branca que esta a cima da preta.
+                        posP = new Posicao(destino.linha - 1, destino.coluna);
+                    }
+                    //retira a peça capturada.
+                    pecaCapturada = tab.retirarPeca(posP);
+                    //adiciono a peça capturada no grupo de peças capturadas.
+                    capturadas.Add(pecaCapturada);
+                }
             }
 
             return pecaCapturada;
@@ -129,6 +155,27 @@ namespace xadrez {//Deixar o namespace somente como xadrez.
 
             }
 
+            //Jogadaespecial en passant.
+            //Se a peça p é um peao, então...
+            if (p is Peao) {
+                //Se a colina de origem não for igual a de destino E a peça capturada não for igual a peça vulneravel, então...
+                if (origem.coluna != destino.coluna && pecaCapturada == vulneravelEnPassant) {
+                    // tiro o peao que estava no tabuleiro.
+                    Peca peao = tab.retirarPeca(destino);
+                    Posicao posP;
+                    //Se a cor que moveu foi a cor branca...
+                    if (p.cor == Cor.Branca) {
+                        // posP guarda a posição onde a peça preta estava antes de ser capturada pela branca.
+                        posP = new Posicao(3, destino.coluna);
+                    }
+                    else { //se ela for preta...
+                        //posp guarda a posição onde a peça branca estava antes de ser capturada pela preta.
+                        posP = new Posicao(4, destino.coluna);
+                    }
+                    //eu devolvo a peça do peao onde eu tinha retirado na posição posP
+                    tab.colocarPeca(peao, posP);
+                }
+            }
         }
 
 
@@ -155,6 +202,21 @@ namespace xadrez {//Deixar o namespace somente como xadrez.
                 turno++;
                 mudaJogador();
             }
+
+            // Jogadaespecial en passant.
+            //armazeno a peça pra ver se esse peça é um peao, por isso que eu pego a peça de destino.
+            Peca p = tab.peca(destino);
+            //Se essa peça p é um Peao E ela andou menos duas linhas OU ela andou mais duas linhas, então...
+            //(o menos duas linhas é a peça branca e o mais duas linhas e a peça preta).
+            if (p is Peao && (destino.linha == origem.linha - 2 || destino.linha == origem.linha + 2)) {
+                vulneravelEnPassant = p; //essa peça esta vulneravel a timar passant no proximo turno.
+            }
+            else {//caso ao contrario não tem ninguel vulneravel em passant.
+                vulneravelEnPassant = null; // ele continua vazio.
+            }
+
+
+
         }
 
         //Metodo para ver se a peça de origem que o usuario digitou e valida.
@@ -313,35 +375,35 @@ namespace xadrez {//Deixar o namespace somente como xadrez.
             colocarNovaPeca('b', 1, new Cavalo(tab, Cor.Branca));
             colocarNovaPeca('c', 1, new Bispo(tab, Cor.Branca));
             colocarNovaPeca('d', 1, new Dama(tab, Cor.Branca));
-            colocarNovaPeca('e', 1, new Rei(tab, Cor.Branca, this));
+            colocarNovaPeca('e', 1, new Rei(tab, Cor.Branca, this)); //Como criamos uma propriedade da classe PartidaDeXadrez la na classe Rei, temos que colocar o this para referenciar ela mesma.
             colocarNovaPeca('f', 1, new Bispo(tab, Cor.Branca));
             colocarNovaPeca('g', 1, new Cavalo(tab, Cor.Branca));
             colocarNovaPeca('h', 1, new Torre(tab, Cor.Branca));
-            colocarNovaPeca('a', 2, new Peao(tab, Cor.Branca));
-            colocarNovaPeca('b', 2, new Peao(tab, Cor.Branca));
-            colocarNovaPeca('c', 2, new Peao(tab, Cor.Branca));
-            colocarNovaPeca('d', 2, new Peao(tab, Cor.Branca));
-            colocarNovaPeca('e', 2, new Peao(tab, Cor.Branca));
-            colocarNovaPeca('f', 2, new Peao(tab, Cor.Branca));
-            colocarNovaPeca('g', 2, new Peao(tab, Cor.Branca));
-            colocarNovaPeca('h', 2, new Peao(tab, Cor.Branca));
+            colocarNovaPeca('a', 2, new Peao(tab, Cor.Branca, this));
+            colocarNovaPeca('b', 2, new Peao(tab, Cor.Branca, this));
+            colocarNovaPeca('c', 2, new Peao(tab, Cor.Branca, this));
+            colocarNovaPeca('d', 2, new Peao(tab, Cor.Branca, this));
+            colocarNovaPeca('e', 2, new Peao(tab, Cor.Branca, this));
+            colocarNovaPeca('f', 2, new Peao(tab, Cor.Branca, this));
+            colocarNovaPeca('g', 2, new Peao(tab, Cor.Branca, this));
+            colocarNovaPeca('h', 2, new Peao(tab, Cor.Branca, this));
 
             colocarNovaPeca('a', 8, new Torre(tab, Cor.Preta));
             colocarNovaPeca('b', 8, new Cavalo(tab, Cor.Preta));
             colocarNovaPeca('c', 8, new Bispo(tab, Cor.Preta));
             colocarNovaPeca('d', 8, new Dama(tab, Cor.Preta));
-            colocarNovaPeca('e', 8, new Rei(tab, Cor.Preta, this));
+            colocarNovaPeca('e', 8, new Rei(tab, Cor.Preta, this)); //Como criamos uma propriedade da classe PartidaDeXadrez la na classe Rei, temos que colocar o this para referenciar ela mesma.
             colocarNovaPeca('f', 8, new Bispo(tab, Cor.Preta));
             colocarNovaPeca('g', 8, new Cavalo(tab, Cor.Preta));
             colocarNovaPeca('h', 8, new Torre(tab, Cor.Preta));
-            colocarNovaPeca('a', 7, new Peao(tab, Cor.Preta));
-            colocarNovaPeca('b', 7, new Peao(tab, Cor.Preta));
-            colocarNovaPeca('c', 7, new Peao(tab, Cor.Preta));
-            colocarNovaPeca('d', 7, new Peao(tab, Cor.Preta));
-            colocarNovaPeca('e', 7, new Peao(tab, Cor.Preta));
-            colocarNovaPeca('f', 7, new Peao(tab, Cor.Preta));
-            colocarNovaPeca('g', 7, new Peao(tab, Cor.Preta));
-            colocarNovaPeca('h', 7, new Peao(tab, Cor.Preta));
+            colocarNovaPeca('a', 7, new Peao(tab, Cor.Preta, this));
+            colocarNovaPeca('b', 7, new Peao(tab, Cor.Preta, this));
+            colocarNovaPeca('c', 7, new Peao(tab, Cor.Preta, this));
+            colocarNovaPeca('d', 7, new Peao(tab, Cor.Preta, this));
+            colocarNovaPeca('e', 7, new Peao(tab, Cor.Preta, this));
+            colocarNovaPeca('f', 7, new Peao(tab, Cor.Preta, this));
+            colocarNovaPeca('g', 7, new Peao(tab, Cor.Preta, this));
+            colocarNovaPeca('h', 7, new Peao(tab, Cor.Preta, this));
         }
     }
 }

@@ -8,7 +8,7 @@ namespace xadrez {//Deixar o namespace somente como xadrez.
     class Rei : Peca { //Herdando da classe Peca.
 
 
-        //Criando uma propriedade da classe partidade de xadrez para que a Peça Rei poça fazer a jogada roque.
+        //Criando uma atributo da classe partidade de xadrez para que a Peça Rei possa fazer a jogada roque.
         private PartidaDeXadrez partida;
 
 
